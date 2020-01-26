@@ -1,14 +1,11 @@
 'use strict';
 
 module.exports = function partition(fn) {
-  var _this = this;
-
-  var arrays = void 0;
+  let arrays;
 
   if (Array.isArray(this.items)) {
     arrays = [new this.constructor([]), new this.constructor([])];
-
-    this.items.forEach(function (item) {
+    this.items.forEach(item => {
       if (fn(item) === true) {
         arrays[0].push(item);
       } else {
@@ -17,9 +14,8 @@ module.exports = function partition(fn) {
     });
   } else {
     arrays = [new this.constructor({}), new this.constructor({})];
-
-    Object.keys(this.items).forEach(function (prop) {
-      var value = _this.items[prop];
+    Object.keys(this.items).forEach(prop => {
+      const value = this.items[prop];
 
       if (fn(value) === true) {
         arrays[0].put(prop, value);

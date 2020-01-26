@@ -6,20 +6,15 @@ module.exports = function replace(items) {
   }
 
   if (Array.isArray(items)) {
-    var _replaced = this.items.map(function (value, index) {
-      return items[index] || value;
-    });
-
-    return new this.constructor(_replaced);
+    const replaced = this.items.map((value, index) => items[index] || value);
+    return new this.constructor(replaced);
   }
 
   if (items.constructor.name === 'Collection') {
-    var _replaced2 = Object.assign({}, this.items, items.all());
-
-    return new this.constructor(_replaced2);
+    const replaced = Object.assign({}, this.items, items.all());
+    return new this.constructor(replaced);
   }
 
-  var replaced = Object.assign({}, this.items, items);
-
+  const replaced = Object.assign({}, this.items, items);
   return new this.constructor(replaced);
 };

@@ -1,26 +1,32 @@
 'use strict';
 
-var values = require('../helpers/values');
+const values = require('../helpers/values');
 
-var _require = require('../helpers/is'),
-    isFunction = _require.isFunction;
+const {
+  isFunction
+} = require('../helpers/is');
 
 module.exports = function sum(key) {
-  var items = values(this.items);
-
-  var total = 0;
+  const items = values(this.items);
+  let total = 0;
 
   if (key === undefined) {
-    for (var i = 0, length = items.length; i < length; i += 1) {
+    for (let i = 0, {
+      length
+    } = items; i < length; i += 1) {
       total += items[i];
     }
   } else if (isFunction(key)) {
-    for (var _i = 0, _length = items.length; _i < _length; _i += 1) {
-      total += key(items[_i]);
+    for (let i = 0, {
+      length
+    } = items; i < length; i += 1) {
+      total += key(items[i]);
     }
   } else {
-    for (var _i2 = 0, _length2 = items.length; _i2 < _length2; _i2 += 1) {
-      total += items[_i2][key];
+    for (let i = 0, {
+      length
+    } = items; i < length; i += 1) {
+      total += items[i][key];
     }
   }
 

@@ -6,10 +6,9 @@ module.exports = function shift() {
   }
 
   if (Object.keys(this.items).length) {
-    var key = Object.keys(this.items)[0];
-    var value = this.items[key];
+    const key = Object.keys(this.items)[0];
+    const value = this.items[key];
     delete this.items[key];
-
     return value;
   }
 

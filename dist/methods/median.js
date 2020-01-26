@@ -1,8 +1,9 @@
 'use strict';
 
 module.exports = function median(key) {
-  var length = this.items.length;
-
+  const {
+    length
+  } = this.items;
 
   if (key === undefined) {
     if (length % 2 === 0) {

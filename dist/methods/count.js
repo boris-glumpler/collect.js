@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function count() {
-  var arrayLength = 0;
+  let arrayLength = 0;
 
   if (Array.isArray(this.items)) {
     arrayLength = this.items.length;

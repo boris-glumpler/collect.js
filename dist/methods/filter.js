@@ -1,13 +1,11 @@
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 function falsyValue(item) {
   if (Array.isArray(item)) {
     if (item.length) {
       return false;
     }
-  } else if (item !== undefined && item !== null && (typeof item === 'undefined' ? 'undefined' : _typeof(item)) === 'object') {
+  } else if (item !== undefined && item !== null && typeof item === 'object') {
     if (Object.keys(item).length) {
       return false;
     }
@@ -19,8 +17,8 @@ function falsyValue(item) {
 }
 
 function filterObject(func, items) {
-  var result = {};
-  Object.keys(items).forEach(function (key) {
+  const result = {};
+  Object.keys(items).forEach(key => {
     if (func) {
       if (func(items[key], key)) {
         result[key] = items[key];
@@ -29,7 +27,6 @@ function filterObject(func, items) {
       result[key] = items[key];
     }
   });
-
   return result;
 }
 
@@ -37,9 +34,12 @@ function filterArray(func, items) {
   if (func) {
     return items.filter(func);
   }
-  var result = [];
-  for (var i = 0; i < items.length; i += 1) {
-    var item = items[i];
+
+  const result = [];
+
+  for (let i = 0; i < items.length; i += 1) {
+    const item = items[i];
+
     if (!falsyValue(item)) {
       result.push(item);
     }
@@ -49,8 +49,9 @@ function filterArray(func, items) {
 }
 
 module.exports = function filter(fn) {
-  var func = fn || false;
-  var filteredItems = null;
+  const func = fn || false;
+  let filteredItems = null;
+
   if (Array.isArray(this.items)) {
     filteredItems = filterArray(func, this.items);
   } else {

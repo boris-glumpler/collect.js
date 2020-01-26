@@ -1,5 +1,4 @@
 'use strict';
-
 /**
  * Get value of a nested property
  *
@@ -10,9 +9,7 @@
 
 module.exports = function nestedValue(mainObject, key) {
   try {
-    return key.split('.').reduce(function (obj, property) {
-      return obj[property];
-    }, mainObject);
+    return key.split('.').reduce((obj, property) => obj[property], mainObject);
   } catch (err) {
     return null;
   }

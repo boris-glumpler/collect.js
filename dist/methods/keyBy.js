@@ -1,21 +1,21 @@
 'use strict';
 
-var nestedValue = require('../helpers/nestedValue');
+const nestedValue = require('../helpers/nestedValue');
 
-var _require = require('../helpers/is'),
-    isFunction = _require.isFunction;
+const {
+  isFunction
+} = require('../helpers/is');
 
 module.exports = function keyBy(key) {
-  var collection = {};
+  const collection = {};
 
   if (isFunction(key)) {
-    this.items.forEach(function (item) {
+    this.items.forEach(item => {
       collection[key(item)] = item;
     });
   } else {
-    this.items.forEach(function (item) {
-      var keyValue = nestedValue(item, key);
-
+    this.items.forEach(item => {
+      const keyValue = nestedValue(item, key);
       collection[keyValue || ''] = item;
     });
   }

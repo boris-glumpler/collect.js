@@ -1,11 +1,10 @@
 'use strict';
 
-var _require = require('../helpers/is'),
-    isFunction = _require.isFunction;
+const {
+  isFunction
+} = require('../helpers/is');
 
-module.exports = function get(key) {
-  var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
+module.exports = function get(key, defaultValue = null) {
   if (this.items[key] !== undefined) {
     return this.items[key];
   }

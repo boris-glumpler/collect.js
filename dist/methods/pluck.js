@@ -1,17 +1,14 @@
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+const nestedValue = require('../helpers/nestedValue');
 
-var nestedValue = require('../helpers/nestedValue');
-
-var buildKeyPathMap = function buildKeyPathMap(items) {
-  var keyPaths = {};
-
-  items.forEach(function (item, index) {
+const buildKeyPathMap = function buildKeyPathMap(items) {
+  const keyPaths = {};
+  items.forEach((item, index) => {
     function buildKeyPath(val, keyPath) {
-      if ((typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object') {
-        Object.keys(val).forEach(function (prop) {
-          buildKeyPath(val[prop], keyPath + '.' + prop);
+      if (typeof val === 'object') {
+        Object.keys(val).forEach(prop => {
+          buildKeyPath(val[prop], `${keyPath}.${prop}`);
         });
       }
 
@@ -20,25 +17,22 @@ var buildKeyPathMap = function buildKeyPathMap(items) {
 
     buildKeyPath(item, index);
   });
-
   return keyPaths;
 };
 
 module.exports = function pluck(value, key) {
   if (value.indexOf('*') !== -1) {
-    var keyPathMap = buildKeyPathMap(this.items);
-
-    var keyMatches = [];
+    const keyPathMap = buildKeyPathMap(this.items);
+    const keyMatches = [];
 
     if (key !== undefined) {
-      var keyRegex = new RegExp('0.' + key, 'g');
-      var keyNumberOfLevels = ('0.' + key).split('.').length;
-
-      Object.keys(keyPathMap).forEach(function (k) {
-        var matchingKey = k.match(keyRegex);
+      const keyRegex = new RegExp(`0.${key}`, 'g');
+      const keyNumberOfLevels = `0.${key}`.split('.').length;
+      Object.keys(keyPathMap).forEach(k => {
+        const matchingKey = k.match(keyRegex);
 
         if (matchingKey) {
-          var match = matchingKey[0];
+          const match = matchingKey[0];
 
           if (match.split('.').length === keyNumberOfLevels) {
             keyMatches.push(keyPathMap[match]);
@@ -47,15 +41,14 @@ module.exports = function pluck(value, key) {
       });
     }
 
-    var valueMatches = [];
-    var valueRegex = new RegExp('0.' + value, 'g');
-    var valueNumberOfLevels = ('0.' + value).split('.').length;
-
-    Object.keys(keyPathMap).forEach(function (k) {
-      var matchingValue = k.match(valueRegex);
+    const valueMatches = [];
+    const valueRegex = new RegExp(`0.${value}`, 'g');
+    const valueNumberOfLevels = `0.${value}`.split('.').length;
+    Object.keys(keyPathMap).forEach(k => {
+      const matchingValue = k.match(valueRegex);
 
       if (matchingValue) {
-        var match = matchingValue[0];
+        const match = matchingValue[0];
 
         if (match.split('.').length === valueNumberOfLevels) {
           valueMatches.push(keyPathMap[match]);
@@ -64,12 +57,10 @@ module.exports = function pluck(value, key) {
     });
 
     if (key !== undefined) {
-      var collection = {};
-
-      this.items.forEach(function (item, index) {
+      const collection = {};
+      this.items.forEach((item, index) => {
         collection[keyMatches[index] || ''] = valueMatches;
       });
-
       return new this.constructor(collection);
     }
 
@@ -77,20 +68,18 @@ module.exports = function pluck(value, key) {
   }
 
   if (key !== undefined) {
-    var _collection = {};
-
-    this.items.forEach(function (item) {
+    const collection = {};
+    this.items.forEach(item => {
       if (nestedValue(item, value) !== undefined) {
-        _collection[item[key] || ''] = nestedValue(item, value);
+        collection[item[key] || ''] = nestedValue(item, value);
       } else {
-        _collection[item[key] || ''] = null;
+        collection[item[key] || ''] = null;
       }
     });
-
-    return new this.constructor(_collection);
+    return new this.constructor(collection);
   }
 
-  return this.map(function (item) {
+  return this.map(item => {
     if (nestedValue(item, value) !== undefined) {
       return nestedValue(item, value);
     }

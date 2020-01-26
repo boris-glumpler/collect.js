@@ -1,23 +1,24 @@
 'use strict';
 
 module.exports = function each(fn) {
-  var stop = false;
+  let stop = false;
 
   if (Array.isArray(this.items)) {
-    var length = this.items.length;
+    const {
+      length
+    } = this.items;
 
-
-    for (var index = 0; index < length && !stop; index += 1) {
+    for (let index = 0; index < length && !stop; index += 1) {
       stop = fn(this.items[index], index, this.items) === false;
     }
   } else {
-    var keys = Object.keys(this.items);
-    var _length = keys.length;
+    const keys = Object.keys(this.items);
+    const {
+      length
+    } = keys;
 
-
-    for (var _index = 0; _index < _length && !stop; _index += 1) {
-      var key = keys[_index];
-
+    for (let index = 0; index < length && !stop; index += 1) {
+      const key = keys[index];
       stop = fn(this.items[key], key, this.items) === false;
     }
   }

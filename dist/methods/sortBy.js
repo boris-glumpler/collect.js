@@ -1,13 +1,15 @@
 'use strict';
 
-var nestedValue = require('../helpers/nestedValue');
+const nestedValue = require('../helpers/nestedValue');
 
-var _require = require('../helpers/is'),
-    isFunction = _require.isFunction;
+const {
+  isFunction
+} = require('../helpers/is');
 
 module.exports = function sortBy(valueOrFunction) {
-  var collection = [].concat(this.items);
-  var getValue = function getValue(item) {
+  const collection = [].concat(this.items);
+
+  const getValue = item => {
     if (isFunction(valueOrFunction)) {
       return valueOrFunction(item);
     }
@@ -15,13 +17,14 @@ module.exports = function sortBy(valueOrFunction) {
     return nestedValue(item, valueOrFunction);
   };
 
-  collection.sort(function (a, b) {
-    var valueA = getValue(a);
-    var valueB = getValue(b);
+  collection.sort((a, b) => {
+    const valueA = getValue(a);
+    const valueB = getValue(b);
 
     if (valueA === null || valueA === undefined) {
       return 1;
     }
+
     if (valueB === null || valueB === undefined) {
       return -1;
     }
@@ -29,12 +32,12 @@ module.exports = function sortBy(valueOrFunction) {
     if (valueA < valueB) {
       return -1;
     }
+
     if (valueA > valueB) {
       return 1;
     }
 
     return 0;
   });
-
   return new this.constructor(collection);
 };

@@ -1,19 +1,19 @@
 'use strict';
 
-module.exports = function crossJoin() {
+module.exports = function crossJoin(...values) {
   function join(collection, constructor, args) {
-    var current = args[0];
+    let current = args[0];
 
     if (current instanceof constructor) {
       current = current.all();
     }
 
-    var rest = args.slice(1);
-    var last = !rest.length;
-    var result = [];
+    const rest = args.slice(1);
+    const last = !rest.length;
+    let result = [];
 
-    for (var i = 0; i < current.length; i += 1) {
-      var collectionCopy = collection.slice();
+    for (let i = 0; i < current.length; i += 1) {
+      const collectionCopy = collection.slice();
       collectionCopy.push(current[i]);
 
       if (last) {
@@ -24,10 +24,6 @@ module.exports = function crossJoin() {
     }
 
     return result;
-  }
-
-  for (var _len = arguments.length, values = Array(_len), _key = 0; _key < _len; _key++) {
-    values[_key] = arguments[_key];
   }
 
   return new this.constructor(join([], this.constructor, [].concat([this.items], values)));

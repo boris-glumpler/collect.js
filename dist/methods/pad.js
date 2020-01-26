@@ -1,21 +1,21 @@
 'use strict';
 
-var clone = require('../helpers/clone');
+const clone = require('../helpers/clone');
 
 module.exports = function pad(size, value) {
-  var abs = Math.abs(size);
-  var count = this.count();
+  const abs = Math.abs(size);
+  const count = this.count();
 
   if (abs <= count) {
     return this;
   }
 
-  var diff = abs - count;
-  var items = clone(this.items);
-  var isArray = Array.isArray(this.items);
-  var prepend = size < 0;
+  let diff = abs - count;
+  const items = clone(this.items);
+  const isArray = Array.isArray(this.items);
+  const prepend = size < 0;
 
-  for (var iterator = 0; iterator < diff;) {
+  for (let iterator = 0; iterator < diff;) {
     if (!isArray) {
       if (items[iterator] !== undefined) {
         diff += 1;

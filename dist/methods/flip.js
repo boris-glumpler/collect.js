@@ -1,17 +1,15 @@
 'use strict';
 
 module.exports = function flip() {
-  var _this = this;
-
-  var collection = {};
+  const collection = {};
 
   if (Array.isArray(this.items)) {
-    Object.keys(this.items).forEach(function (key) {
-      collection[_this.items[key]] = Number(key);
+    Object.keys(this.items).forEach(key => {
+      collection[this.items[key]] = Number(key);
     });
   } else {
-    Object.keys(this.items).forEach(function (key) {
-      collection[_this.items[key]] = key;
+    Object.keys(this.items).forEach(key => {
+      collection[this.items[key]] = key;
     });
   }
 

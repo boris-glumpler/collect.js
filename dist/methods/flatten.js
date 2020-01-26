@@ -1,24 +1,24 @@
 'use strict';
 
-var _require = require('../helpers/is'),
-    isArray = _require.isArray,
-    isObject = _require.isObject;
+const {
+  isArray,
+  isObject
+} = require('../helpers/is');
 
 module.exports = function flatten(depth) {
-  var flattenDepth = depth || Infinity;
+  let flattenDepth = depth || Infinity;
+  let fullyFlattened = false;
+  let collection = [];
 
-  var fullyFlattened = false;
-  var collection = [];
-
-  var flat = function flat(items) {
+  const flat = function flat(items) {
     collection = [];
 
     if (isArray(items)) {
-      items.forEach(function (item) {
+      items.forEach(item => {
         if (isArray(item)) {
           collection = collection.concat(item);
         } else if (isObject(item)) {
-          Object.keys(item).forEach(function (property) {
+          Object.keys(item).forEach(property => {
             collection = collection.concat(item[property]);
           });
         } else {
@@ -26,11 +26,11 @@ module.exports = function flatten(depth) {
         }
       });
     } else {
-      Object.keys(items).forEach(function (property) {
+      Object.keys(items).forEach(property => {
         if (isArray(items[property])) {
           collection = collection.concat(items[property]);
         } else if (isObject(items[property])) {
-          Object.keys(items[property]).forEach(function (prop) {
+          Object.keys(items[property]).forEach(prop => {
             collection = collection.concat(items[property][prop]);
           });
         } else {
@@ -39,11 +39,8 @@ module.exports = function flatten(depth) {
       });
     }
 
-    fullyFlattened = collection.filter(function (item) {
-      return isObject(item);
-    });
+    fullyFlattened = collection.filter(item => isObject(item));
     fullyFlattened = fullyFlattened.length === 0;
-
     flattenDepth -= 1;
   };
 

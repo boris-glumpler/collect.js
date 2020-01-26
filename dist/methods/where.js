@@ -1,24 +1,20 @@
 'use strict';
 
-var values = require('../helpers/values');
-var nestedValue = require('../helpers/nestedValue');
+const values = require('../helpers/values');
+
+const nestedValue = require('../helpers/nestedValue');
 
 module.exports = function where(key, operator, value) {
-  var comparisonOperator = operator;
-  var comparisonValue = value;
-
-  var items = values(this.items);
+  let comparisonOperator = operator;
+  let comparisonValue = value;
+  const items = values(this.items);
 
   if (operator === undefined || operator === true) {
-    return new this.constructor(items.filter(function (item) {
-      return nestedValue(item, key);
-    }));
+    return new this.constructor(items.filter(item => nestedValue(item, key)));
   }
 
   if (operator === false) {
-    return new this.constructor(items.filter(function (item) {
-      return !nestedValue(item, key);
-    }));
+    return new this.constructor(items.filter(item => !nestedValue(item, key)));
   }
 
   if (value === undefined) {
@@ -26,7 +22,7 @@ module.exports = function where(key, operator, value) {
     comparisonOperator = '===';
   }
 
-  var collection = items.filter(function (item) {
+  const collection = items.filter(item => {
     switch (comparisonOperator) {
       case '==':
         return nestedValue(item, key) === Number(comparisonValue) || nestedValue(item, key) === comparisonValue.toString();
@@ -55,6 +51,5 @@ module.exports = function where(key, operator, value) {
         return nestedValue(item, key) >= comparisonValue;
     }
   });
-
   return new this.constructor(collection);
 };

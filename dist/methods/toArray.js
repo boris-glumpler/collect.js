@@ -1,20 +1,16 @@
 'use strict';
 
 module.exports = function toArray() {
-  var collectionInstance = this.constructor;
+  const collectionInstance = this.constructor;
 
   function iterate(list, collection) {
-    var childCollection = [];
+    const childCollection = [];
 
     if (list instanceof collectionInstance) {
-      list.items.forEach(function (i) {
-        return iterate(i, childCollection);
-      });
+      list.items.forEach(i => iterate(i, childCollection));
       collection.push(childCollection);
     } else if (Array.isArray(list)) {
-      list.forEach(function (i) {
-        return iterate(i, childCollection);
-      });
+      list.forEach(i => iterate(i, childCollection));
       collection.push(childCollection);
     } else {
       collection.push(list);
@@ -22,12 +18,10 @@ module.exports = function toArray() {
   }
 
   if (Array.isArray(this.items)) {
-    var collection = [];
-
-    this.items.forEach(function (items) {
+    const collection = [];
+    this.items.forEach(items => {
       iterate(items, collection);
     });
-
     return collection;
   }
 

@@ -5,11 +5,9 @@ module.exports = function pop() {
     return this.items.pop();
   }
 
-  var keys = Object.keys(this.items);
-  var key = keys[keys.length - 1];
-  var last = this.items[key];
-
+  const keys = Object.keys(this.items);
+  const key = keys[keys.length - 1];
+  const last = this.items[key];
   delete this.items[key];
-
   return last;
 };

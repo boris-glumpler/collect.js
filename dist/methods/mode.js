@@ -1,15 +1,15 @@
 'use strict';
 
 module.exports = function mode(key) {
-  var values = [];
-  var highestCount = 1;
+  const values = [];
+  let highestCount = 1;
 
   if (!this.items.length) {
     return null;
   }
 
-  this.items.forEach(function (item) {
-    var tempValues = values.filter(function (value) {
+  this.items.forEach(item => {
+    const tempValues = values.filter(value => {
       if (key !== undefined) {
         return value.key === item[key];
       }
@@ -19,24 +19,26 @@ module.exports = function mode(key) {
 
     if (!tempValues.length) {
       if (key !== undefined) {
-        values.push({ key: item[key], count: 1 });
+        values.push({
+          key: item[key],
+          count: 1
+        });
       } else {
-        values.push({ key: item, count: 1 });
+        values.push({
+          key: item,
+          count: 1
+        });
       }
     } else {
       tempValues[0].count += 1;
-      var count = tempValues[0].count;
-
+      const {
+        count
+      } = tempValues[0];
 
       if (count > highestCount) {
         highestCount = count;
       }
     }
   });
-
-  return values.filter(function (value) {
-    return value.count === highestCount;
-  }).map(function (value) {
-    return value.key;
-  });
+  return values.filter(value => value.count === highestCount).map(value => value.key);
 };

@@ -1,11 +1,13 @@
 'use strict';
 
-var _require = require('../helpers/is'),
-    isFunction = _require.isFunction;
+const {
+  isFunction
+} = require('../helpers/is');
 
 module.exports = function last(fn, defaultValue) {
-  var items = this.items;
-
+  let {
+    items
+  } = this;
 
   if (isFunction(fn)) {
     items = this.filter(fn).all();
@@ -22,7 +24,7 @@ module.exports = function last(fn, defaultValue) {
   if (Array.isArray(items)) {
     return items[items.length - 1];
   }
-  var keys = Object.keys(items);
 
+  const keys = Object.keys(items);
   return items[keys[keys.length - 1]];
 };

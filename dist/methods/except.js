@@ -1,31 +1,20 @@
 'use strict';
 
-var variadic = require('../helpers/variadic');
+const variadic = require('../helpers/variadic');
 
-module.exports = function except() {
-  var _this = this;
-
-  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-
-  var properties = variadic(args);
+module.exports = function except(...args) {
+  const properties = variadic(args);
 
   if (Array.isArray(this.items)) {
-    var _collection = this.items.filter(function (item) {
-      return properties.indexOf(item) === -1;
-    });
-
-    return new this.constructor(_collection);
+    const collection = this.items.filter(item => properties.indexOf(item) === -1);
+    return new this.constructor(collection);
   }
 
-  var collection = {};
-
-  Object.keys(this.items).forEach(function (property) {
+  const collection = {};
+  Object.keys(this.items).forEach(property => {
     if (properties.indexOf(property) === -1) {
-      collection[property] = _this.items[property];
+      collection[property] = this.items[property];
     }
   });
-
   return new this.constructor(collection);
 };

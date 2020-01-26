@@ -1,7 +1,5 @@
 'use strict';
 
-module.exports = function make() {
-  var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
+module.exports = function make(items = []) {
   return new this.constructor(items);
 };

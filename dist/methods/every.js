@@ -1,11 +1,8 @@
 'use strict';
 
-var values = require('../helpers/values');
+const values = require('../helpers/values');
 
 module.exports = function every(fn) {
-  var items = values(this.items);
-
-  return items.map(function (item, index) {
-    return fn(item, index);
-  }).indexOf(false) === -1;
+  const items = values(this.items);
+  return items.map((item, index) => fn(item, index)).indexOf(false) === -1;
 };

@@ -1,12 +1,11 @@
 'use strict';
 
 module.exports = function split(numberOfGroups) {
-  var itemsPerGroup = Math.round(this.items.length / numberOfGroups);
+  const itemsPerGroup = Math.round(this.items.length / numberOfGroups);
+  const items = JSON.parse(JSON.stringify(this.items));
+  const collection = [];
 
-  var items = JSON.parse(JSON.stringify(this.items));
-  var collection = [];
-
-  for (var iterator = 0; iterator < numberOfGroups; iterator += 1) {
+  for (let iterator = 0; iterator < numberOfGroups; iterator += 1) {
     collection.push(new this.constructor(items.splice(0, itemsPerGroup)));
   }
 

@@ -1,38 +1,34 @@
 'use strict';
 
-var _require = require('../helpers/is'),
-    isFunction = _require.isFunction;
+const {
+  isFunction
+} = require('../helpers/is');
 
 module.exports = function search(valueOrFunction, strict) {
-  var _this = this;
-
-  var valueFn = valueOrFunction;
+  let valueFn = valueOrFunction;
 
   if (isFunction(valueOrFunction)) {
-    valueFn = this.items.find(function (value, key) {
-      return valueOrFunction(value, key);
-    });
+    valueFn = this.items.find((value, key) => valueOrFunction(value, key));
   }
 
-  var index = false;
+  let index = false;
 
   if (Array.isArray(this.items)) {
-    var itemKey = this.items.filter(function (item) {
+    const itemKey = this.items.filter(item => {
       if (strict === true) {
         return item === valueFn;
       }
 
       return item === Number(valueFn) || item === String(valueFn);
     })[0];
-
     index = this.items.indexOf(itemKey);
   } else {
-    return Object.keys(this.items).filter(function (prop) {
+    return Object.keys(this.items).filter(prop => {
       if (strict === true) {
-        return _this.items[prop] === valueFn;
+        return this.items[prop] === valueFn;
       }
 
-      return _this.items[prop] === Number(valueFn) || _this.items[prop] === valueFn.toString();
+      return this.items[prop] === Number(valueFn) || this.items[prop] === valueFn.toString();
     })[0] || false;
   }
 

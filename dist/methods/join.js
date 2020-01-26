@@ -1,13 +1,13 @@
 'use strict';
 
 module.exports = function join(glue, finalGlue) {
-  var collection = this.values();
+  const collection = this.values();
 
   if (finalGlue === undefined) {
     return collection.implode(glue);
   }
 
-  var count = collection.count();
+  const count = collection.count();
 
   if (count === 0) {
     return '';
@@ -17,7 +17,6 @@ module.exports = function join(glue, finalGlue) {
     return collection.last();
   }
 
-  var finalItem = collection.pop();
-
+  const finalItem = collection.pop();
   return collection.implode(glue) + finalGlue + finalItem;
 };

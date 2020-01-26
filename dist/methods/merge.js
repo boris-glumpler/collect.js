@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function merge(value) {
-  var arrayOrObject = value;
+  let arrayOrObject = value;
 
   if (typeof arrayOrObject === 'string') {
     arrayOrObject = [arrayOrObject];
@@ -11,11 +11,9 @@ module.exports = function merge(value) {
     return new this.constructor(this.items.concat(arrayOrObject));
   }
 
-  var collection = JSON.parse(JSON.stringify(this.items));
-
-  Object.keys(arrayOrObject).forEach(function (key) {
+  const collection = JSON.parse(JSON.stringify(this.items));
+  Object.keys(arrayOrObject).forEach(key => {
     collection[key] = arrayOrObject[key];
   });
-
   return new this.constructor(collection);
 };

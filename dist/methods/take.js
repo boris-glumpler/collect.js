@@ -1,13 +1,9 @@
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 module.exports = function take(length) {
-  var _this = this;
-
-  if (!Array.isArray(this.items) && _typeof(this.items) === 'object') {
-    var keys = Object.keys(this.items);
-    var slicedKeys = void 0;
+  if (!Array.isArray(this.items) && typeof this.items === 'object') {
+    const keys = Object.keys(this.items);
+    let slicedKeys;
 
     if (length < 0) {
       slicedKeys = keys.slice(length);
@@ -15,14 +11,12 @@ module.exports = function take(length) {
       slicedKeys = keys.slice(0, length);
     }
 
-    var collection = {};
-
-    keys.forEach(function (prop) {
+    const collection = {};
+    keys.forEach(prop => {
       if (slicedKeys.indexOf(prop) !== -1) {
-        collection[prop] = _this.items[prop];
+        collection[prop] = this.items[prop];
       }
     });
-
     return new this.constructor(collection);
   }
 

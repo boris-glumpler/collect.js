@@ -1,9 +1,7 @@
 'use strict';
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 function Collection(collection) {
-  if (collection !== undefined && !Array.isArray(collection) && (typeof collection === 'undefined' ? 'undefined' : _typeof(collection)) !== 'object') {
+  if (collection !== undefined && !Array.isArray(collection) && typeof collection !== 'object') {
     this.items = [collection];
   } else if (collection instanceof this.constructor) {
     this.items = collection.all();
@@ -11,21 +9,23 @@ function Collection(collection) {
     this.items = collection || [];
   }
 }
-
 /**
  * Symbol.iterator
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator
  */
-var SymbolIterator = require('./methods/symbol.iterator');
+
+
+const SymbolIterator = require('./methods/symbol.iterator');
 
 if (typeof Symbol !== 'undefined') {
   Collection.prototype[Symbol.iterator] = SymbolIterator;
 }
-
 /**
  * Support JSON.stringify
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
  */
+
+
 Collection.prototype.toJSON = function toJSON() {
   return this.items;
 };
@@ -141,9 +141,7 @@ Collection.prototype.whereNotIn = require('./methods/whereNotIn');
 Collection.prototype.wrap = require('./methods/wrap');
 Collection.prototype.zip = require('./methods/zip');
 
-var collect = function collect(collection) {
-  return new Collection(collection);
-};
+const collect = collection => new Collection(collection);
 
 module.exports = collect;
 module.exports.collect = collect;

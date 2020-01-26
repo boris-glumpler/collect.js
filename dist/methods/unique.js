@@ -1,22 +1,23 @@
 'use strict';
 
-var _require = require('../helpers/is'),
-    isFunction = _require.isFunction;
+const {
+  isFunction
+} = require('../helpers/is');
 
 module.exports = function unique(key) {
-  var collection = void 0;
+  let collection;
 
   if (key === undefined) {
-    collection = this.items.filter(function (element, index, self) {
-      return self.indexOf(element) === index;
-    });
+    collection = this.items.filter((element, index, self) => self.indexOf(element) === index);
   } else {
     collection = [];
+    const usedKeys = [];
 
-    var usedKeys = [];
+    for (let iterator = 0, {
+      length
+    } = this.items; iterator < length; iterator += 1) {
+      let uniqueKey;
 
-    for (var iterator = 0, length = this.items.length; iterator < length; iterator += 1) {
-      var uniqueKey = void 0;
       if (isFunction(key)) {
         uniqueKey = key(this.items[iterator]);
       } else {
