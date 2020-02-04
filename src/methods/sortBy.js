@@ -31,7 +31,7 @@ module.exports = function sortBy(valueOrFunction) {
       return 1;
     }
 
-    return 0;
+    return valueA - valueB;
   });
 
   return new this.constructor(collection);
